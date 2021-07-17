@@ -1,10 +1,10 @@
-const Country = require("../models/countries")
+const City= require('../models/cities')
 
-
-exports.get_Country = (req, res) => {
-    Country.find()
-      .exec()
-      .then((docs) => {
+exports.get_city=(req,res)=>{
+    City.findOne({ city: 'Karachi' })
+    .populate("countryID")
+    .exec()
+    .then((docs) => {
         console.log(docs);
         res.status(200).json(docs);
       })
@@ -14,22 +14,22 @@ exports.get_Country = (req, res) => {
           error: err,
         });
       });
-  };
+}
 
 
-  exports.create_country = (req, res) => {
+exports.create_city = (req, res) => {
     console.log("ss", req.body);
   
-    const country = new Country({
-      countries:req.body.countries
+    const city = new City({
+      city:req.body.city
     });
   
-    country
+    city
       .save()
       .then((result) => {
         console.log(result);
         res.status(201).json({
-          message: "country created successfully",
+          message: "city created successfully",
           _id: result._id,
         });
       })

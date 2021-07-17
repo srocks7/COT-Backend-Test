@@ -2,8 +2,13 @@ var express = require("express");
 var app = express();
 const mongoose = require("mongoose");
 var cors = require("cors");
-
-
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 app.use(cors());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -24,7 +29,9 @@ mongoose
 
 
   const countryRoutes = require("./api/routes/countries");
+  const cityRoutes = require("./api/routes/cities");
   app.use("/country", countryRoutes);
+  app.use("/city", cityRoutes);
 
 
 
